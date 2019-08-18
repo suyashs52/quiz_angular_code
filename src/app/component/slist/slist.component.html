@@ -1,0 +1,276 @@
+<div class="container">
+  <app-header #header></app-header>
+
+
+
+  <div class="container">
+
+    <div class="row">
+
+
+
+
+
+      <!-- Post Content Column -->
+      <div class="col-lg-12">
+
+        <!-- Title -->
+        <h1 class="mt-4">Details</h1>
+
+
+
+        <hr>
+
+
+
+        <!-- Preview Image -->
+
+        <hr>
+
+
+
+        <section id="tabs" class="project-tab">
+          <div class="container">
+            <div class="row">
+              <div class="col-md-12">
+                <nav>
+                  <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+                    <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab"
+                      aria-controls="nav-home" aria-selected="true" (click)="userdetails($event)">User List</a>
+                    <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab"
+                      aria-controls="nav-profile" aria-selected="false" (click)="questionList($event)">Question List</a>
+
+                  </div>
+                </nav>
+                <div class="tab-content" id="nav-tabContent">
+                  <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+
+                    <a class="btn btn-info btn-xs pull-right" routerLink="/signup" routerLinkActive="active">
+                      <span class="fa fa-user-plus "></span></a>
+                      <br/><br/>
+
+                    <div class="table-responsive">
+
+
+                      <table id="mytable" class="table table-bordred table-striped  table-hover">
+
+                        <thead class="thead-light">
+
+                          <!-- <th><input type="checkbox" id="checkall" /></th> -->
+                          <th>Id</th>
+                          <th>User Name</th>
+                          <th>Role</th>
+                          <th>Name</th>
+                          <th>Phone</th>
+                          <th>Edit</th>
+
+                          <!-- <th>Delete</th> -->
+                        </thead>
+                        <tbody>
+
+                          <tr *ngFor="let d of user">
+                            <!-- <td><input type="checkbox" class="checkthis" /></td> -->
+                            <td>{{d.id}}</td>
+                            <td>{{d.username}}</td>
+                            <td>{{d.role}}</td>
+                            <td>{{d.name}}</td>
+                            <td>{{d.phone}}</td>
+                            <td>
+                              <p data-placement="top" data-toggle="tooltip" title="Edit" (click)="edituserDetail(d)">
+                                <button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal"
+                                  data-target="#edit"><span class="fa fa-pencil"></span></button></p>
+                            </td>
+                            <!-- <td>
+                              <p data-placement="top" data-toggle="tooltip" title="Delete"><button
+                                  class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal"
+                                  data-target="#delete"><span class="fa fa-trash"></span></button></p>
+                            </td> -->
+                          </tr>
+
+
+
+
+
+
+
+                        </tbody>
+
+                      </table>
+                      <nav aria-label="Page navigation example ">
+                        <ul class="pagination pull-right">
+                          <li class="page-item" [class.disabled]="pageForUser.cur==pageForUser.first">
+                            <a class="page-link" href="javascript:void(0)" (click)="pageForUserFn(-1,'p')"
+                              aria-label="Previous">
+                              <span aria-hidden="true">&laquo;</span>
+                              <span class="sr-only">Previous</span>
+                            </a>
+                          </li>
+                          <li class="page-item" *ngFor="let i of pageForUser.getRange()"
+                            [class.disabled]="i==pageForUser.cur">
+                            <a class="page-link" href="javascript:void(0)" (click)="pageForUserFn(i,'m')">{{i}}</a>
+                          </li>
+
+                          <li class="page-item" [class.disabled]="pageForUser.cur==pageForUser.last">
+                            <a class="page-link" href="javascript:void(0)" (click)="pageForUserFn(-1,'n')"
+                              aria-label="Next">
+                              <span aria-hidden="true">&raquo;</span>
+                              <span class="sr-only">Next</span>
+                            </a>
+                          </li>
+                        </ul>
+                      </nav>
+
+
+                    </div>
+                  </div>
+                  <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                   
+                      <a class="btn btn-info btn-xs pull-right" routerLink="/paper" routerLinkActive="active">
+                        <span class="fa fa-question-circle "></span></a>
+                        <br/><br/>
+                   
+                        <table id="mytable" class="table table-bordred table-striped  table-hover">
+
+                            <thead class="thead-light">
+    
+                              <!-- <th><input type="checkbox" id="checkall" /></th> -->
+                              <th>Id</th>
+                              <th>Name</th>
+                              <th>Desc</th>
+                              <th>Time</th>
+                              <th>Question</th>
+                              <th>Edit</th>
+    
+                              <!-- <th>Delete</th> -->
+                            </thead>
+                            <tbody>
+    
+                              <tr *ngFor="let d of paper">
+                                <!-- <td><input type="checkbox" class="checkthis" /></td> -->
+                                <td>{{d.id}}</td>
+                                <td>{{d.name}}</td>
+                                <td>{{d.desc}}</td>
+                                <td>{{d.totalTime}}</td>
+                                <td>{{d.totalQuestion}}</td>
+                              
+                                <td>
+                                  <p data-placement="top" data-toggle="tooltip" title="Edit" (click)="editpaperDetail(d)">
+                                    <button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal"
+                                      data-target="#edit"><span class="fa fa-pencil"></span></button></p>
+                                </td>
+                                
+                              </tr>
+    
+    
+    
+    
+    
+    
+    
+                            </tbody>
+    
+                          </table>
+                    <nav aria-label="Page navigation example ">
+                        <ul class="pagination pull-right">
+                          <li class="page-item" [class.disabled]="pageForPaper.cur==pageForPaper.first">
+                            <a class="page-link" href="javascript:void(0)" (click)="pageForPaperFn(-1,'p')"
+                              aria-label="Previous">
+                              <span aria-hidden="true">&laquo;</span>
+                              <span class="sr-only">Previous</span>
+                            </a>
+                          </li>
+                          <li class="page-item" *ngFor="let i of pageForPaper.getRange()"
+                            [class.disabled]="i==pageForPaper.cur">
+                            <a class="page-link" href="javascript:void(0)" (click)="pageForPaperFn(i,'m')">{{i}}</a>
+                          </li>
+
+                          <li class="page-item" [class.disabled]="pageForPaper.cur==pageForPaper.last">
+                            <a class="page-link" href="javascript:void(0)" (click)="pageForPaperFn(-1,'n')"
+                              aria-label="Next">
+                              <span aria-hidden="true">&raquo;</span>
+                              <span class="sr-only">Next</span>
+                            </a>
+                          </li>
+                        </ul>
+                      </nav>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+
+
+
+
+
+
+
+
+        <hr>
+
+
+
+
+        <!-- Comments Form -->
+
+
+        <!-- Single Comment -->
+        <!-- <div class="media mb-4">
+
+          <div class="media-body">
+            <h5 class="mt-0">Commenter Name</h5>
+            Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio,
+            vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec
+            lacinia congue felis in faucibus.
+          </div>
+        </div> -->
+
+
+
+      </div>
+
+
+
+    </div>
+    <!-- /.row -->
+
+  </div>
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <br /><br />
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">{{modalHeader}}</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="card my-4">
+            <h5 class="card-header">Change Password:</h5>
+            <div class="card-body">
+              <form>
+                <div class="form-group">
+                  <input name="password" type="password" [(ngModel)]="modalpasssword" class="form-control" />
+                </div>
+                <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="saveuserDetail()">Save
+            changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

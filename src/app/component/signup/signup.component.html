@@ -1,0 +1,108 @@
+<div class="container">
+  <app-header #header></app-header>
+</div>
+<section class="testimonial py-5" id="testimonial">
+  <div class="container">
+    <div class="row ">
+      <div class="col-md-4 py-5 bg-primary text-white text-center ">
+        <div class=" ">
+          <div class="card-body">
+            <img src="../../../assets/img/registration_bg.svg" style="width:30%">
+            <h2 class="py-3">Registration</h2>
+            <p> Save user for quiz , phone should be of 10 numbers. password should be alpha numeric
+              with @/# , phone and username should be unique
+
+
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-8 py-5 border">
+        <h4 class="pb-4">Please fill details</h4>
+        <form>
+
+
+
+          <div class="form-row">
+            <div class="form-group  input-group col-md-6">
+              <div class="input-group-prepend">
+                <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+              </div>
+              <input name="name" [(ngModel)]="saveUser.name" class="form-control" placeholder="Full name" type="text">
+
+            </div>
+
+            <div class="form-group input-group  col-md-6">
+              <div class="input-group-prepend">
+                <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
+              </div>
+              <input name="username" [(ngModel)]="saveUser.username" class="form-control" placeholder="User Name">
+            </div>
+
+
+          </div>
+          <div class="form-row">
+
+            <div class="form-group input-group col-md-6">
+              <div class="input-group-prepend">
+                <span class="input-group-text"> <i class="fa fa-phone"></i> </span>
+              </div>
+
+              <input name="phone" [(ngModel)]="saveUser.phone" class="form-control" placeholder="Phone number" type="text">
+            </div>
+
+
+            <div class="form-group input-group  col-md-6">
+              <div class="input-group-prepend">
+                <span class="input-group-text"> <i class="fa fa-building"></i> </span>
+              </div>
+              <select name="role" [(ngModel)]="saveUser.role"class="form-control">
+                
+                <option value="ADMIN">Admin</option>
+                <option value="USER">User</option>
+
+              </select>
+            </div>
+
+          </div>
+          <div class="form-row">
+
+            <div class="form-group input-group col-md-6">
+              <div class="input-group-prepend">
+                <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+              </div>
+              <input class="form-control" name="password" [(ngModel)]="saveUser.password" placeholder="Create password"
+                type="password">
+            </div>
+
+
+            <div class="form-group input-group col-md-6">
+              <div class="input-group-prepend">
+                <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+              </div>
+              <input class="form-control" placeholder="Create password" type="password" name="vpassword"
+                [(ngModel)]="saveUser.vpassword">
+            </div>
+           
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <div class="form-group">
+                <div class="form-check">
+                  <!-- <input class="form-check-input" type="checkbox" value="" id="invalidCheck2" required> -->
+                  <label class="form-check-label" for="invalidCheck2">
+                    <small>By Successfull submit, new user will be created. </small>
+                  </label>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="form-row">
+            <button type="button" class="btn btn-danger" (click)="saveuserDetail()">Submit</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>

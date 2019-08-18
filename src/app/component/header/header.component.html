@@ -1,0 +1,58 @@
+<div class="row justify-content-md-center">
+
+  <div class="col-md-auto">
+    {{loginrole}}
+  </div>
+
+</div>
+<nav class="navbar navbar-expand navbar-light bg-light">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03"
+    aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <a class="navbar-brand" href="javascript:void(0)">welcome {{loginuser}}</a>
+
+  <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+      <li class="nav-item active">
+        <a class="nav-link" routerLink="/slist">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Link</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link disabled" href="#">Disabled</a>
+      </li>
+    </ul>
+    <form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="text" placeholder="Time in Minute" aria-label="Time">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">End Test</button>
+    </form>
+    <form class="form-inline my-2 my-lg-0">
+      <!-- <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"> -->
+      <button class="btn btn-outline-info my-2 my-sm-0 ml-1" type="button" (click)="logout()"> <span _ngcontent-upb-c1=""
+          class="fa fa-sign-out"></span> </button>
+    </form>
+  </div>
+</nav>
+<hr>
+<div class="col-lg-12 col-sm-12 " *ngIf="showError">
+  <div class="alert alert-danger alert-dismissible fade show">
+    <button type="button" class="close" data-dismiss="alert">×</button>
+    <strong>Error!</strong> {{error}}
+  </div>
+</div>
+<div class="col-lg-12 col-sm-12 " *ngIf="showSuccess">
+  <div class="alert alert-success alert-dismissible fade show">
+    <button type="button" class="close" data-dismiss="alert">×</button>
+    <strong>Info!</strong> {{success}}
+  </div>
+</div>
+<hr>
+<div class="col-lg-12 col-sm-12 " *ngIf="loader">
+  <div class="d-flex justify-content-center">
+    <div class="spinner-border" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
+  </div>
+</div>

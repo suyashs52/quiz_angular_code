@@ -1,0 +1,225 @@
+ 
+<div class="container">
+  
+  <app-header #header></app-header>
+  
+
+
+  <div class="container">
+
+    <div class="row">
+
+      
+
+
+
+      <!-- Post Content Column -->
+      <div class="col-lg-8">
+
+        <!-- Title -->
+        <h1 class="mt-4">Post Title</h1>
+
+        <!-- Author -->
+        <p class="lead">
+            Posted on January 1, 2019 at 12:00 PM
+        </p>
+
+        <hr>
+
+        <!-- Date/Time -->
+        
+        <div class="progress">
+            <div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+          </div>
+       
+
+        <!-- Preview Image -->
+
+        <hr>
+        <div class="d-flex justify-content-center">
+            <div class="spinner-border" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+          </div>
+        
+
+        <!-- Post Content -->
+        <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus, vero, obcaecati, aut, error
+          quam sapiente nemo saepe quibusdam sit excepturi nam quia corporis eligendi eos magni recusandae laborum minus
+          inventore?</p>
+           <span class="badge badge-secondary">+ 5</span> 
+
+           <hr>
+          
+        <div class="row">
+          
+          <div class="col-6 ">
+            <div class="alert alert-primary" role="alert">
+              This is a primary alert with <a href="#" class="alert-link">an example link</a>. Give it a click if you
+              like.
+            </div>
+          </div>
+          <div class="col-6 ">
+              <div class="alert alert-warning" role="alert">
+                  This is a warning alert with <a href="#" class="alert-link">an example link</a>. Give it a click if you like.
+                </div>
+          </div>
+          <div class="col-6 ">
+              <div class="alert alert-secondary" role="alert">
+                  This is a secondary alert with <a href="#" class="alert-link">an example link</a>. Give it a click if you like.
+                </div>
+          </div>
+          <div class="col-6 ">
+              <div class="alert alert-light" role="alert">
+                  This is a light alert with <a href="#" class="alert-link">an example link</a>. Give it a click if you like.
+                </div>
+          </div>
+          <button class="btn btn-warning mr-1" id="continuebtn" ng-click="questionAnswered()">Continue
+            </button>
+            <button type="button" class="btn btn-danger"><i class="fa fa-share-square"></i>  </button>
+
+        </div>
+
+
+
+
+
+
+        
+
+        
+
+        <hr>
+
+        <!-- Comments Form -->
+        <div class="card my-4">
+          <h5 class="card-header">Leave a Comment:</h5>
+          <div class="card-body">
+            <form>
+              <div class="form-group">
+                <textarea class="form-control" rows="3"></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+          </div>
+        </div>
+
+        <!-- Single Comment -->
+        <div class="media mb-4">
+          <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
+          <div class="media-body">
+            <h5 class="mt-0">Commenter Name</h5>
+            Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio,
+            vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec
+            lacinia congue felis in faucibus.
+          </div>
+        </div>
+
+        
+
+      </div>
+
+      <!-- Sidebar Widgets Column -->
+      <div class="col-md-4">
+
+        <!-- Search Widget -->
+        <div class="card my-4">
+          <h5 class="card-header">{{notify}}</h5>
+          <div class="card-body">
+            <div class="input-group">
+
+              <countdown #countdown [config]="config" (start)="onStart()" (finished)="onFinished()"
+                (notify)="onNotify($event)">
+
+                <div class="flex-col-c-m size2 bor1 m-l-10 m-r-10 m-b-15">
+                  <span class="l1-txt3 p-b-9 minutes">$!m!</span>
+                  <span class="s1-txt2">Minutes</span>
+                </div>
+                <div class="flex-col-c-m size2 bor1 m-l-10 m-r-10 m-b-15">
+                  <span class="l1-txt3 p-b-9 minutes">$!s!</span>
+                  <span class="s1-txt2">Seconds</span>
+                </div>
+
+
+              </countdown>
+            </div>
+          </div>
+        </div>
+
+        <!-- Categories Widget -->
+        <div class="card my-4">
+          <h5 class="card-header">Questions
+            <div class="row">
+              <div class="col-lg-6">
+                <ul class="list-unstyled mb-0">
+                  <li>
+                    <button type="button" class="btn btn-danger"><i class="fa fa-pencil"></i> Solved </button>
+
+                  </li>
+
+
+                </ul>
+              </div>
+              <div class="col-lg-6">
+                <ul class="list-unstyled mb-0">
+                  <li>
+                    <button type="button" class="btn btn-outline-primary"><i class="fa fa-question"></i> Unsolved
+                    </button>
+
+                  </li>
+
+                </ul>
+              </div>
+            </div>
+          </h5>
+          <div class="card-body">
+
+            <div class="row">
+              <div class="col-lg-6">
+                <ul class="list-unstyled mb-0">
+                  <li>
+                    <button type="button" class="btn btn-outline-danger"><i class="fa fa-home"></i> 1 </button>
+
+                  </li>
+                  <li>
+                    <button type="button" class="btn btn-outline-dark"><i class="fa fa-home"></i> 3 </button>
+
+                  </li>
+
+                </ul>
+              </div>
+              <div class="col-lg-6">
+                <ul class="list-unstyled mb-0">
+                  <li>
+                    <button type="button" class="btn btn-outline-primary"><i class="fa fa-home"></i> 2 </button>
+
+                  </li>
+                  <li>
+                    <button type="button" class="btn btn-outline-success"><i class="fa fa-home"></i> 4 </button>
+
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Side Widget -->
+        <div class="card my-4">
+          <h5 class="card-header">Review <i class="fa fa-share-square"></i> </h5>
+          <div class="card-body">
+            You can put anything you want inside of these side widgets. They are easy to use, and feature the new
+            Bootstrap 4 card containers!
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+    <!-- /.row -->
+
+  </div>
+
+
+
+</div>

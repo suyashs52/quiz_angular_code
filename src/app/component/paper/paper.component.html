@@ -1,0 +1,107 @@
+<div class="container">
+  <app-header #header></app-header>
+</div>
+<div class="container">
+
+  <div class="jumbotron">
+    <div class="form-row">
+      <div class="input-group mb-3 col-md-6">
+        <div class="input-group-prepend">
+          <span class="input-group-text"><i class="fa fa-question"></i></span>
+        </div>
+        <input name="name" [(ngModel)]="paper.name" class="form-control" placeholder="Paper" type="text">
+
+
+        <div class="input-group-append">
+          <span class="input-group-text"> Name</span>
+        </div>
+      </div>
+
+      <div class="input-group mb-3 col-md-6">
+        <div class="input-group-prepend">
+          <span class="input-group-text"><i class="fa fa-file-text"></i></span>
+        </div>
+        <input name="desc" [(ngModel)]="paper.desc" class="form-control" placeholder="Description">
+
+
+
+
+        <div class="input-group-append">
+          <span class="input-group-text"> Desc</span>
+        </div>
+      </div>
+
+
+
+    </div>
+
+
+
+    <h1 class="display-3">{{paper.name}}</h1>
+    <p class="lead">{{paper.desc}}</p>
+
+    <div class="form-row">
+      <div class="input-group mb-3 col-md-6">
+        <div class="input-group-prepend">
+          <span class="input-group-text"><i class="fa fa-clock-o"></i></span>
+        </div>
+        <input name="name" [(ngModel)]="paper.totalTime" class="form-control" aria-label="Time is mins"
+          placeholder="Time in Mins" type="text">
+
+
+        <div class="input-group-append">
+          <span class="input-group-text"> mins</span>
+        </div>
+      </div>
+
+      <div class="input-group mb-3 col-md-6">
+        <div class="input-group-prepend">
+          <span class="input-group-text"><i class="fa fa-calculator"></i></span>
+        </div>
+        <input name="desc" [(ngModel)]="paper.totalQuestion" disabled class="form-control" placeholder="Questions "
+          aria-placeholder="Questions">
+
+        <div class="input-group-append">
+          <span class="input-group-text"> Ques</span>
+        </div>
+      </div>
+    </div>
+
+
+    <p><a class="btn btn-lg btn-success" href="#" role="button">Submit and Continue >> </a></p>
+
+  </div>
+
+
+  <!-- 
+  <div class="row marketing">
+    <div class="col-lg-6">
+      <h4>Subheading</h4>
+      <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
+
+      <h4>Subheading</h4>
+      <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.
+      </p>
+
+      <h4>Subheading</h4>
+      <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
+    </div>
+
+    <div class="col-lg-6">
+      <h4>Subheading</h4>
+      <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
+
+      <h4>Subheading</h4>
+      <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.
+      </p>
+
+      <h4>Subheading</h4>
+      <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
+    </div>
+  </div> -->
+
+  <footer class="footer">
+    <p>© Target 2019</p>
+  </footer>
+
+</div>

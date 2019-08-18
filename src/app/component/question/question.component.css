@@ -1,0 +1,67 @@
+.bor1 {
+    border: 1px solid rgba(5, 5, 5, 0.3);
+    border-radius: 50%;
+}
+countdown{
+     display: flex !important;
+}
+.size2 {
+    width: 100px;
+    height: 100px;
+}
+.l1-txt3 {
+    font-family: Poppins-Bold;
+    font-size: 24px;
+    color: rgb(137, 114, 243);
+    line-height: 1;
+    font-weight: bolder;
+}
+.l1-txt4 {
+    font-family: Poppins-Bold;
+    font-size: 24px;
+    color: rgb(255, 47, 10);
+    line-height: 1;
+    font-weight: bolder;
+}
+
+.p-b-9 {
+    padding-bottom: 9px;
+}
+
+.m-l-10 {
+    margin-left: 10px;
+}
+
+.m-b-15 {
+    margin-bottom: 15px;
+}
+
+
+
+.m-r-10 {
+    margin-right: 10px;
+}
+.flex-col-c-m{
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+}
+
+
+.flex-col-c-m {
+    -webkit-flex-direction: column;
+    -moz-flex-direction: column;
+    -ms-flex-direction: column;
+    -o-flex-direction: column;
+    flex-direction: column;
+}
+.flex-col-c-m {
+    -ms-align-items: center;
+    align-items: center;
+    justify-content: center;
+}
+.list-unstyled li{
+    margin-bottom: 10px;
+}
