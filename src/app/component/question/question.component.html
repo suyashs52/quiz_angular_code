@@ -1,15 +1,14 @@
- 
 <div class="container">
-  
+
   <app-header #header></app-header>
-  
+
 
 
   <div class="container">
 
     <div class="row">
 
-      
+
 
 
 
@@ -21,66 +20,152 @@
 
         <!-- Author -->
         <p class="lead">
-            {{paper.desc}}
+          {{paper.desc}}
         </p>
 
         <hr>
 
         <!-- Date/Time -->
-        
+
         <div class="progress">
-            <div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
-          </div>
-       
+          <div class="progress-bar progress-bar-striped bg-success" role="progressbar"
+            [ngStyle]="{'width.%': progressValue}" [attr.aria-valuenow]="progressValue" aria-valuemin="0"
+            aria-valuemax="100">{{progressValue}}%</div>
+        </div>
+
 
         <!-- Preview Image -->
 
         <hr>
-        
-        
 
-        <!-- Post Content -->
-        <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus, vero, obcaecati, aut, error
-          quam sapiente nemo saepe quibusdam sit excepturi nam quia corporis eligendi eos magni recusandae laborum minus
-          inventore?</p>
-           <span class="badge badge-secondary">+ 5</span> 
 
-           <hr>
-          
-        <div class="row">
-          
-          <div class="col-6 ">
-            <div class="alert alert-primary" role="alert">
-              This is a primary alert with <a href="#" class="alert-link">an example link</a>. Give it a click if you
-              like.
-            </div>
-          </div>
-          <div class="col-6 ">
-              <div class="alert alert-warning" role="alert">
-                  This is a warning alert with <a href="#" class="alert-link">an example link</a>. Give it a click if you like.
+        <ng-container *ngIf="isNewPaper">
+          <ng-container *ngFor="let d of question;let i=index">
+            <ng-container *ngIf="d.seq==current">
+              <div class="form-group  input-group col-md-12">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"> <i class="fa fa-file-text-o"></i> </span>
                 </div>
-          </div>
-          <div class="col-6 ">
-              <div class="alert alert-secondary" role="alert">
-                  This is a secondary alert with <a href="#" class="alert-link">an example link</a>. Give it a click if you like.
+                <input name="question" [(ngModel)]="d.question" class="form-control" placeholder="Question"
+                  type="text" />
+
+              </div>
+
+
+
+              <span class="badge badge-secondary">+ correct<input name="correctMark" [(ngModel)]="d.correctMark"
+                  class="form-control" placeholder="Right Marks" type="text">
+              </span>
+              <span class="badge badge-secondary">+/- wrong <input name="wrongMark" [(ngModel)]="d.wrongMark"
+                  class="form-control" placeholder="Wrong Marks" type="text">
+              </span>
+
+              <hr>
+
+              <div class="row">
+                <ng-container *ngFor="let o of d.opt; let k=index">
+                  <div class="col-6 ">
+                    <div class="alert alert-primary" role="alert">
+                      <div class="custom-control custom-checkbox">
+
+                        <input type="radio" value="{{o.id}}" [checked]="o.isCorrectChoice" (change)="optionclick(d,o)"
+                          name="ProfitCode" />
+
+                        <input name="description" [(ngModel)]="o.description" class="form-control" placeholder="Option"
+                          type="text" />
+
+
+                      </div>
+
+
+                    </div>
+                  </div>
+                </ng-container>
+                <div class="col-12 ">
+                  <div class="alert alert-info" role="alert">
+                    <select name="role" [(ngModel)]="d.fkLevel" class="form-control">
+
+                      <option value="1">EASY</option>
+                      <option value="2">MEDIUM</option>
+                      <option value="3">DIFFICULT</option>
+
+                    </select>
+
+
+                  </div>
                 </div>
-          </div>
-          <div class="col-6 ">
-              <div class="alert alert-light" role="alert">
-                  This is a light alert with <a href="#" class="alert-link">an example link</a>. Give it a click if you like.
-                </div>
-          </div>
-          <button class="btn btn-warning mr-1" id="continuebtn" ng-click="questionAnswered()">Continue
+
+
+                <button class="btn btn-warning mr-1" id="continuebtn" (click)="nextContinueBtn(d,i)">Continue
+                </button>
+                <button type="button" class="btn btn-danger"><i class="fa fa-share-square"></i> </button>
+
+              </div>
+
+            </ng-container>
+          </ng-container>
+
+          <br />
+
+          <div class="col-12 ">
+            <button class="btn btn-success mr-1" (click)="saveQuestionPaper(d,i)">Save All
             </button>
-            <button type="button" class="btn btn-danger"><i class="fa fa-share-square"></i>  </button>
+          </div>
 
-        </div>
+
+        </ng-container>
+
+
+        <ng-container *ngIf="!isNewPaper">
+          <ng-container *ngFor="let d of question;let i=index">
+            <ng-container *ngIf="d.seq==current">
+               
+                
+                  <p class="lead">{{d.question}}</p>
+                  <span class="badge badge-secondary mr-1">+ {{d.correctMark}}</span>
+                  <span class="badge badge-secondary mr-1">- {{d.wrongMark}}</span>
+                  <hr>
+               
+                  <div class="row">
+
+                      <ng-container *ngFor="let o of d.opt; let k=index">
+                          <div class="col-6 ">
+                            <div class="alert" [ngClass]="o.styleCss" role="alert" (click)="optionClick(d,o)">
+                              <div class="custom-control custom-checkbox">
+        
+                               {{o.description}}
+        
+        
+                              </div>
+        
+        
+                            </div>
+                          </div>
+                        </ng-container>
  
+                    
+
+                      <button class="btn btn-warning mr-1" id="continuebtn" ng-click="questionAnswered()">Continue
+                      </button>
+                      <button type="button" class="btn btn-danger"><i class="fa fa-share-square"></i> </button>
+          
+                    </div>
+
+            </ng-container>
+          </ng-container>
+
+ 
+        </ng-container>
+        <!-- Post Content -->
+
+
+
+
 
         <hr>
- 
 
-        
+
+
 
       </div>
 
@@ -101,7 +186,7 @@
                   <span class=" s1-txt2">Minutes</span>
                 </div>
                 <div class="flex-col-c-m size2 bor1 m-l-10 m-r-10 m-b-15">
-                  <span class="l1-txt3 p-b-9 minutes" >$!s!</span>
+                  <span class="l1-txt3 p-b-9 minutes">$!s!</span>
                   <span class="s1-txt2">Seconds</span>
                 </div>
 
@@ -113,7 +198,7 @@
 
         <!-- Categories Widget -->
         <div class="card my-4">
-          <h5 class="card-header">Questions
+          <h5 class="card-header">Question - {{current}}
             <div class="row">
               <div class="col-lg-6">
                 <ul class="list-unstyled mb-0">
@@ -128,7 +213,8 @@
               <div class="col-lg-6">
                 <ul class="list-unstyled mb-0">
                   <li>
-                    <button type="button" class="btn btn-outline-primary"><i class="fa fa-question"></i> Unsolved
+                    <button type="button" class="btn" [ngClass]="unsolvedBtnClass[0]"><i class="fa "
+                        [ngClass]="unsolvedBtnClass[0]"></i> Unsolved
                     </button>
 
                   </li>
@@ -142,27 +228,33 @@
             <div class="row">
               <div class="col-lg-6">
                 <ul class="list-unstyled mb-0">
-                  <li>
-                    <button type="button" class="btn "  [ngClass]="unsolvedBtnClass[0]"><i class="fa " [ngClass]="unsolvedBtnClass[1]"></i> 1 </button>
+                  <li *ngFor="let d of question;let i=index">
+                    <button *ngIf="i%2===0" type="button" class="btn " (click)="nextContinue(d,i)"
+                      [ngClass]="d.styleclass[0]"><i class="fa " [ngClass]="d.styleclass[1]"></i> {{d.seq}} </button>
 
                   </li>
-                  <li>
-                    <button type="button" class="btn btn-outline-dark"><i class="fa fa-home"></i> 3 </button>
 
-                  </li>
 
                 </ul>
               </div>
               <div class="col-lg-6">
                 <ul class="list-unstyled mb-0">
-                  <li>
+                  <ng-container *ngFor="let d of question;let i=index">
+                    <li *ngIf="i%2!==0">
+                      <button type="button" class="btn " [ngClass]="d.styleclass[0]" (click)="nextContinue(d,i)"><i
+                          class="fa " [ngClass]="d.styleclass[1]"></i> {{d.seq}} </button>
+
+                    </li>
+                  </ng-container>
+
+                  <!-- <li>
                     <button type="button" class="btn btn-outline-primary"><i class="fa fa-home"></i> 2 </button>
 
                   </li>
                   <li>
                     <button type="button" class="btn btn-outline-success"><i class="fa fa-home"></i> 4 </button>
 
-                  </li>
+                  </li> -->
                 </ul>
               </div>
             </div>
@@ -173,7 +265,7 @@
         <div class="card my-4">
           <h5 class="card-header">Review <i class="fa fa-share-square"></i> </h5>
           <div class="card-body">
-            
+
           </div>
         </div>
 

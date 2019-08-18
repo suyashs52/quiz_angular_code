@@ -1,7 +1,8 @@
-import { Component, OnInit,ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Paper } from 'src/app/class/Paper';
 import { formatDate } from '@angular/common';
 import { HeaderComponent } from '../header/header.component'
+import { Question } from 'src/app/class/Question';
 @Component({
   selector: 'app-paper',
   templateUrl: './paper.component.html',
@@ -10,55 +11,56 @@ import { HeaderComponent } from '../header/header.component'
 export class PaperComponent implements OnInit {
   @ViewChild(HeaderComponent) header: HeaderComponent;
   savePaper: Paper = new Paper();
-  paperId:string;
+  paperId: string;
+  
   constructor() { }
-   displayEdit:boolean=false;
+  displayEdit: boolean = false;
   ngOnInit() {
-    this.savePaper.totalQuestion=10;
-    this.paperId=localStorage.getItem("paperId");
-    if(this.paperId==null){
-      this.displayEdit=true;
-     
-    }else{
+    this.savePaper.totalQuestion = 10;
+    this.paperId = localStorage.getItem("paperId");
+    if (this.paperId == null) {
+      this.displayEdit = true;
+
+    } else {
       //localStorage.removeItem("paperId");
       this.navquesDetail();
     }
   }
-  navquesDetail(){
-    
-    var datatosend = { };
-    let paperid:number=Number.parseInt(this.paperId);
+  navquesDetail() {
 
-    this.header.dataService.getMtdData(datatosend, "getpaper/"+paperid).subscribe((resp) => {
+    var datatosend = {};
+    let paperid: number = Number.parseInt(this.paperId);
+
+    this.header.dataService.getMtdData(datatosend, "getpaper/" + paperid).subscribe((resp) => {
       //loader=false
       console.log(resp);
-      this.savePaper=resp;
-      localStorage.setItem("paper",JSON.stringify(resp));
- 
-      
+      this.savePaper = resp;
+      localStorage.setItem("paper", JSON.stringify(resp));
+
+
     },
-    error => {
-       
+      error => {
+
         this.header.handleError(error);
-     
-    
-      console.log(error);
-      
-    
-    });
+
+
+        console.log(error);
+
+
+      });
   }
-  
-  savepaperDetail(st:string){
-    var date= formatDate(new Date(),'yyyy-MM-dd','en');
+
+  savepaperDetail(st: string) {
+    var date = formatDate(new Date(), 'yyyy-MM-dd', 'en');
     var datatosend = {
-       
-       
-      "name":  this.savePaper.name,
+
+
+      "name": this.savePaper.name,
       "desc": this.savePaper.desc,
-      
-      "totalTime":  this.savePaper.totalTime,
-      "totalQuestion":  this.savePaper.totalQuestion,
-      "createDate":date,// | asdf,// "1999-04-04",
+
+      "totalTime": this.savePaper.totalTime,
+      "totalQuestion": this.savePaper.totalQuestion,
+      "createDate": date,// | asdf,// "1999-04-04",
       "createdBy": "admin"
 
     };
@@ -68,26 +70,26 @@ export class PaperComponent implements OnInit {
       //loader=false
       this.header.handleSuccess("save successfully.");
       console.log(resp);
-      if(st=="go"){
-        localStorage.setItem("paper",JSON.stringify(this.savePaper));
+      if (st == "go") {
+        localStorage.setItem("paper", JSON.stringify(this.savePaper));
         this.header.router.navigate(["/question"]);
-      }else{
+      } else {
         this.header.router.navigate(["/slist"]);
       }
-      
+
     },
-    error => {
-      if(error=="OK"){
-        this.header.handleSuccess("paper record updated successfully.");
-      }else{
-        this.header.handleError(error);
-      }
-    
-      console.log(error);
-      
-    
-    });
-    
+      error => {
+        if (error == "OK") {
+          this.header.handleSuccess("paper record updated successfully.");
+        } else {
+          this.header.handleError(error);
+        }
+
+        console.log(error);
+
+
+      });
+
   }
 
 }
