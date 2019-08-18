@@ -12,8 +12,8 @@ export class HeaderComponent implements OnInit {
   showError: boolean;
   showSuccess:boolean;
   success:string;
-  constructor(public dataService: DataService, private route: ActivatedRoute,
-    private router: Router) { }
+  constructor(public dataService: DataService, protected route: ActivatedRoute,
+    public router: Router) { }
   getDataService: DataService;
   loginuser:string;
   loginrole:string;

@@ -47,7 +47,7 @@
 
                     <a class="btn btn-info btn-xs pull-right" routerLink="/signup" routerLinkActive="active">
                       <span class="fa fa-user-plus "></span></a>
-                      <br/><br/>
+                    <br /><br />
 
                     <div class="table-responsive">
 
@@ -124,75 +124,79 @@
                     </div>
                   </div>
                   <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-                   
-                      <a class="btn btn-info btn-xs pull-right" routerLink="/paper" routerLinkActive="active">
-                        <span class="fa fa-question-circle "></span></a>
-                        <br/><br/>
-                   
-                        <table id="mytable" class="table table-bordred table-striped  table-hover">
 
-                            <thead class="thead-light">
-    
-                              <!-- <th><input type="checkbox" id="checkall" /></th> -->
-                              <th>Id</th>
-                              <th>Name</th>
-                              <th>Desc</th>
-                              <th>Time</th>
-                              <th>Question</th>
-                              <th>Edit</th>
-    
-                              <!-- <th>Delete</th> -->
-                            </thead>
-                            <tbody>
-    
-                              <tr *ngFor="let d of paper">
-                                <!-- <td><input type="checkbox" class="checkthis" /></td> -->
-                                <td>{{d.id}}</td>
-                                <td>{{d.name}}</td>
-                                <td>{{d.desc}}</td>
-                                <td>{{d.totalTime}}</td>
-                                <td>{{d.totalQuestion}}</td>
-                              
-                                <td>
-                                  <p data-placement="top" data-toggle="tooltip" title="Edit" (click)="editpaperDetail(d)">
-                                    <button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal"
-                                      data-target="#edit"><span class="fa fa-pencil"></span></button></p>
-                                </td>
-                                
-                              </tr>
-    
-    
-    
-    
-    
-    
-    
-                            </tbody>
-    
-                          </table>
+                    <a class="btn btn-info btn-xs pull-right" routerLink="/paper" routerLinkActive="active">
+                      <span class="fa fa-question-circle "></span></a>
+                    <br /><br />
+
+                    <table id="mytable" class="table table-bordred table-striped  table-hover">
+
+                      <thead class="thead-light">
+
+                        <!-- <th><input type="checkbox" id="checkall" /></th> -->
+                        <th>Id</th>
+                        <th>Name</th>
+                        <th>Desc</th>
+                        <th>Time</th>
+                        <th>Question</th>
+                        <th>Edit</th>
+                        <th></th>
+
+                        <!-- <th>Delete</th> -->
+                      </thead>
+                      <tbody>
+
+                        <tr *ngFor="let d of paper">
+                          <!-- <td><input type="checkbox" class="checkthis" /></td> -->
+                          <td>{{d.id}}</td>
+                          <td>{{d.name}}</td>
+                          <td>{{d.desc}}</td>
+                          <td>{{d.totalTime}}</td>
+                          <td>{{d.totalQuestion}}</td>
+
+                          <td>
+                            <p data-placement="top" data-toggle="tooltip" title="Edit" (click)="editpaperDetail(d)">
+                              <button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal"
+                                data-target="#editPaper"><span class="fa fa-pencil"></span></button></p>
+                          </td>
+                          <td>
+                              <p data-placement="top" data-toggle="tooltip" title="Edit" (click)="navpaperDetail(d)">
+                                <button class="btn btn-primary btn-xs"><span class="fa fa-arrow-right"></span></button></p>
+                            </td>
+                        </tr>
+
+
+
+
+
+
+
+                      </tbody>
+
+                    </table>
                     <nav aria-label="Page navigation example ">
-                        <ul class="pagination pull-right">
-                          <li class="page-item" [class.disabled]="pageForPaper.cur==pageForPaper.first">
-                            <a class="page-link" href="javascript:void(0)" (click)="pageForPaperFn(-1,'p')"
-                              aria-label="Previous">
-                              <span aria-hidden="true">&laquo;</span>
-                              <span class="sr-only">Previous</span>
-                            </a>
-                          </li>
-                          <li class="page-item" *ngFor="let i of pageForPaper.getRange()"
-                            [class.disabled]="i==pageForPaper.cur">
-                            <a class="page-link" href="javascript:void(0)" (click)="pageForPaperFn(i,'m')">{{i}}</a>
-                          </li>
+                      <ul class="pagination pull-right">
+                        <li class="page-item" [class.disabled]="pageForPaper.cur==pageForPaper.first">
+                          <a class="page-link" href="javascript:void(0)" (click)="pageForPaperFn(-1,'p')"
+                            aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                            <span class="sr-only">Previous</span>
+                          </a>
+                        </li>
+                        <li class="page-item" *ngFor="let i of pageForPaper.getRange()"
+                          [class.disabled]="i==pageForPaper.cur">
+                          <a class="page-link" href="javascript:void(0)" (click)="pageForPaperFn(i,'m')">{{i}}</a>
+                        </li>
 
-                          <li class="page-item" [class.disabled]="pageForPaper.cur==pageForPaper.last">
-                            <a class="page-link" href="javascript:void(0)" (click)="pageForPaperFn(-1,'n')"
-                              aria-label="Next">
-                              <span aria-hidden="true">&raquo;</span>
-                              <span class="sr-only">Next</span>
-                            </a>
-                          </li>
-                        </ul>
-                      </nav>
+                        <li class="page-item" [class.disabled]="pageForPaper.cur==pageForPaper.last">
+                          <a class="page-link" href="javascript:void(0)" (click)="pageForPaperFn(-1,'n')"
+                            aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                            <span class="sr-only">Next</span>
+                          </a>
+                        </li>
+                      </ul>
+                    </nav>
                   </div>
 
                 </div>
@@ -273,4 +277,66 @@
     </div>
   </div>
 
+  <div class="modal fade" id="editPaper" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <br /><br />
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{modalHeader}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="card my-4">
+          <h5 class="card-header">Update Details:</h5>
+          <div class="card-body">
+            <div class="input-group mb-3 col-md-12">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fa fa-clock-o"></i></span>
+              </div>
+              <input name="name" [(ngModel)]="savePaper.totalTime" class="form-control" aria-label="Time is mins"
+                placeholder="Time in Mins" type="text">
+
+
+              <div class="input-group-append">
+                <span class="input-group-text"> mins</span>
+              </div>
+            </div>
+
+            <div class="input-group mb-3 col-md-12">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fa fa-file-text"></i></span>
+              </div>
+              <input name="desc" [(ngModel)]="savePaper.desc" class="form-control" placeholder="Description">
+
+
+
+
+              <div class="input-group-append">
+                <span class="input-group-text"> Desc</span>
+              </div>
+            </div>
+
+
+
+          </div>
+
+        </div>
+      </div>
+      <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="savepaperDetail()">Save
+            changes</button>
+        </div>
+    </div>
+    
+  </div>
 </div>
+ 
+
+</div>
+
+
+ 

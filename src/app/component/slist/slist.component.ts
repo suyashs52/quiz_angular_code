@@ -96,7 +96,7 @@ export class SlistComponent implements OnInit {
    
     
   }
-  savePaper:Paper;
+  savePaper:Paper=new Paper();
   editpaperDetail(paper: Paper) {
     this.modalHeader = "Edit " + paper.name;
     console.log(paper);
@@ -104,6 +104,15 @@ export class SlistComponent implements OnInit {
    
     
   }
+  navpaperDetail(paper: Paper) {
+   localStorage.setItem("paperId",paper.id.toString());
+   this.header.router.navigate(['/paper']);
+    console.log(paper);
+    this.savePaper=paper;
+   
+    
+  }
+  
 
   
   saveuserDetail(){
@@ -152,6 +161,40 @@ export class SlistComponent implements OnInit {
     this.getAllPaper();
   }
 
+  
+  savepaperDetail(){
+    var date= formatDate(new Date(),'yyyy-MM-dd','en');
+    var datatosend = {
+      "id":this.savePaper.id,
+       
+      "name":  this.savePaper.name,
+      "desc": this.savePaper.desc,
+      
+      "totalTime":  this.savePaper.totalTime,
+      "totalQuestion":  this.savePaper.totalQuestion,
+      "createDate":date,// | asdf,// "1999-04-04",
+      "createdBy": "admin"
+
+    };
+
+
+    this.header.dataService.getData(datatosend, "updatepaper").subscribe((resp) => {
+      //loader=false
+      this.header.handleSuccess("save successfully.");
+    },
+    error => {
+      if(error=="OK"){
+        this.header.handleSuccess("paper record updated successfully.");
+      }else{
+        this.header.handleError(error);
+      }
+    
+      console.log(error);
+      
+    
+    });
+    
+  }
   getAllUser() {
     //this.pageForUser.cur-1
     //after data
@@ -162,7 +205,7 @@ export class SlistComponent implements OnInit {
 
     this.header.error = "";
     this.header.loader = true;
-    this.header.dataService.getRsltData(datatosend, "logins").subscribe(data => {
+    this.header.dataService.getMtdData({}, "user").subscribe(data => {
     },
     error => {
       this.header.handleError(error);

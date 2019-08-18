@@ -3,13 +3,13 @@
 </div>
 <div class="container">
 
-  <div class="jumbotron">
+  <div class="jumbotron" *ngIf="displayEdit">
     <div class="form-row">
       <div class="input-group mb-3 col-md-6">
         <div class="input-group-prepend">
           <span class="input-group-text"><i class="fa fa-question"></i></span>
         </div>
-        <input name="name" [(ngModel)]="paper.name" class="form-control" placeholder="Paper" type="text">
+        <input name="name" [(ngModel)]="savePaper.name" class="form-control" placeholder="Paper" type="text">
 
 
         <div class="input-group-append">
@@ -21,7 +21,7 @@
         <div class="input-group-prepend">
           <span class="input-group-text"><i class="fa fa-file-text"></i></span>
         </div>
-        <input name="desc" [(ngModel)]="paper.desc" class="form-control" placeholder="Description">
+        <input name="desc" [(ngModel)]="savePaper.desc" class="form-control" placeholder="Description">
 
 
 
@@ -37,15 +37,15 @@
 
 
 
-    <h1 class="display-3">{{paper.name}}</h1>
-    <p class="lead">{{paper.desc}}</p>
+    <h1 class="display-3">{{savePaper.name}}</h1>
+    <p class="lead">{{savePaper.desc}}</p>
 
     <div class="form-row">
       <div class="input-group mb-3 col-md-6">
         <div class="input-group-prepend">
           <span class="input-group-text"><i class="fa fa-clock-o"></i></span>
         </div>
-        <input name="name" [(ngModel)]="paper.totalTime" class="form-control" aria-label="Time is mins"
+        <input name="name" [(ngModel)]="savePaper.totalTime" class="form-control" aria-label="Time is mins"
           placeholder="Time in Mins" type="text">
 
 
@@ -58,7 +58,7 @@
         <div class="input-group-prepend">
           <span class="input-group-text"><i class="fa fa-calculator"></i></span>
         </div>
-        <input name="desc" [(ngModel)]="paper.totalQuestion" disabled class="form-control" placeholder="Questions "
+        <input name="desc" [(ngModel)]="savePaper.totalQuestion" disabled class="form-control" placeholder="Questions "
           aria-placeholder="Questions">
 
         <div class="input-group-append">
@@ -68,37 +68,24 @@
     </div>
 
 
-    <p><a class="btn btn-lg btn-success" href="#" role="button">Submit and Continue >> </a></p>
-
+    <p><a class="btn btn-lg btn-success" href="javascript:void(0)" role="button" (click)="savepaperDetail('go')">Submit and Question <i class="fa fa-arrow-right "></i>  </a></p>
+<br/>
+<p><a class="btn btn-lg btn-success" href="javascript:void(0)" role="button" (click)="savepaperDetail('')"> <i class="fa fa-arrow-left "></i>  Submit and List </a></p>
   </div>
-
-
-  <!-- 
-  <div class="row marketing">
-    <div class="col-lg-6">
-      <h4>Subheading</h4>
-      <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
-
-      <h4>Subheading</h4>
-      <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.
-      </p>
-
-      <h4>Subheading</h4>
-      <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
+  <div class="jumbotron" *ngIf="!displayEdit">
+       
+  
+  
+      <h1 class="display-3">{{savePaper.name}}</h1>
+      <p class="lead">{{savePaper.desc}}</p>
+  
+      
+  
+  
+      <p><a class="btn btn-lg btn-success" href="javascript:void(0)" role="button"routerLink="/question">Questions >> </a></p>
+  
     </div>
-
-    <div class="col-lg-6">
-      <h4>Subheading</h4>
-      <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
-
-      <h4>Subheading</h4>
-      <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.
-      </p>
-
-      <h4>Subheading</h4>
-      <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
-    </div>
-  </div> -->
+ 
 
   <footer class="footer">
     <p>© Target 2019</p>

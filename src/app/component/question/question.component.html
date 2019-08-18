@@ -17,11 +17,11 @@
       <div class="col-lg-8">
 
         <!-- Title -->
-        <h1 class="mt-4">Post Title</h1>
+        <h1 class="mt-4">{{paper.name}}</h1>
 
         <!-- Author -->
         <p class="lead">
-            Posted on January 1, 2019 at 12:00 PM
+            {{paper.desc}}
         </p>
 
         <hr>
@@ -36,11 +36,7 @@
         <!-- Preview Image -->
 
         <hr>
-        <div class="d-flex justify-content-center">
-            <div class="spinner-border" role="status">
-              <span class="sr-only">Loading...</span>
-            </div>
-          </div>
+        
         
 
         <!-- Post Content -->
@@ -79,41 +75,10 @@
             <button type="button" class="btn btn-danger"><i class="fa fa-share-square"></i>  </button>
 
         </div>
-
-
-
-
-
-
-        
-
-        
+ 
 
         <hr>
-
-        <!-- Comments Form -->
-        <div class="card my-4">
-          <h5 class="card-header">Leave a Comment:</h5>
-          <div class="card-body">
-            <form>
-              <div class="form-group">
-                <textarea class="form-control" rows="3"></textarea>
-              </div>
-              <button type="submit" class="btn btn-primary">Submit</button>
-            </form>
-          </div>
-        </div>
-
-        <!-- Single Comment -->
-        <div class="media mb-4">
-          <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
-          <div class="media-body">
-            <h5 class="mt-0">Commenter Name</h5>
-            Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio,
-            vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec
-            lacinia congue felis in faucibus.
-          </div>
-        </div>
+ 
 
         
 
@@ -133,10 +98,10 @@
 
                 <div class="flex-col-c-m size2 bor1 m-l-10 m-r-10 m-b-15">
                   <span class="l1-txt3 p-b-9 minutes">$!m!</span>
-                  <span class="s1-txt2">Minutes</span>
+                  <span class=" s1-txt2">Minutes</span>
                 </div>
                 <div class="flex-col-c-m size2 bor1 m-l-10 m-r-10 m-b-15">
-                  <span class="l1-txt3 p-b-9 minutes">$!s!</span>
+                  <span class="l1-txt3 p-b-9 minutes" >$!s!</span>
                   <span class="s1-txt2">Seconds</span>
                 </div>
 
@@ -178,7 +143,7 @@
               <div class="col-lg-6">
                 <ul class="list-unstyled mb-0">
                   <li>
-                    <button type="button" class="btn btn-outline-danger"><i class="fa fa-home"></i> 1 </button>
+                    <button type="button" class="btn "  [ngClass]="unsolvedBtnClass[0]"><i class="fa " [ngClass]="unsolvedBtnClass[1]"></i> 1 </button>
 
                   </li>
                   <li>
@@ -208,8 +173,7 @@
         <div class="card my-4">
           <h5 class="card-header">Review <i class="fa fa-share-square"></i> </h5>
           <div class="card-body">
-            You can put anything you want inside of these side widgets. They are easy to use, and feature the new
-            Bootstrap 4 card containers!
+            
           </div>
         </div>
 

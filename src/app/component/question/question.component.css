@@ -19,7 +19,7 @@ countdown{
 .l1-txt4 {
     font-family: Poppins-Bold;
     font-size: 24px;
-    color: rgb(255, 47, 10);
+    color: rgb(255, 47, 10) !important;
     line-height: 1;
     font-weight: bolder;
 }
