@@ -119,42 +119,44 @@
         <ng-container *ngIf="!isNewPaper">
           <ng-container *ngFor="let d of question;let i=index">
             <ng-container *ngIf="d.seq==current">
-               
-                
-                  <p class="lead">{{d.question}}</p>
-                  <span class="badge badge-secondary mr-1">+ {{d.correctMark}}</span>
-                  <span class="badge badge-secondary mr-1">- {{d.wrongMark}}</span>
-                  <hr>
-               
-                  <div class="row">
 
-                      <ng-container *ngFor="let o of d.opt; let k=index">
-                          <div class="col-6 ">
-                            <div class="alert" [ngClass]="o.styleCss" role="alert" (click)="optionClick(d,o)">
-                              <div class="custom-control custom-checkbox">
-        
-                               {{o.description}}
-        
-        
-                              </div>
-        
-        
-                            </div>
-                          </div>
-                        </ng-container>
- 
-                    
 
-                      <button class="btn btn-warning mr-1" id="continuebtn" ng-click="questionAnswered()">Continue
-                      </button>
-                      <button type="button" class="btn btn-danger"><i class="fa fa-share-square"></i> </button>
-          
+              <p class="lead">{{d.question}}</p>
+              <span class="badge badge-secondary mr-1">+ {{d.correctMark}}</span>
+              <span class="badge badge-secondary mr-1">- {{d.wrongMark}}</span>
+              <hr>
+
+              <div class="row">
+
+                <ng-container *ngFor="let o of d.opt; let k=index">
+                  <div class="col-6 ">
+                    <div class="alert" style="cursor: pointer" [ngClass]="o.styleCss" role="alert"
+                      (click)="optionClick(d,o)">
+                      <div class="custom-control custom-checkbox">
+
+                        {{o.description}}
+
+
+                      </div>
+
+
                     </div>
+                  </div>
+                </ng-container>
+
+
+
+                <button class="btn btn-warning mr-1" id="continuebtn" (click)="nextContinue(d,current)">Continue
+                </button>
+                <button type="button" class="btn " [ngClass]="d.isReview ? 'btn-dark' : 'btn-outline-dark'"
+                  (click)="reviewQues(d)"><i class="fa fa-share-square"></i> </button>
+
+              </div>
 
             </ng-container>
           </ng-container>
 
- 
+
         </ng-container>
         <!-- Post Content -->
 
@@ -203,7 +205,7 @@
               <div class="col-lg-6">
                 <ul class="list-unstyled mb-0">
                   <li>
-                    <button type="button" class="btn btn-danger"><i class="fa fa-pencil"></i> Solved </button>
+                    <button type="button" class="btn btn-outline-danger"><i class="fa fa-pencil"></i> Solved -{{progressValue/10}} </button>
 
                   </li>
 
@@ -213,8 +215,7 @@
               <div class="col-lg-6">
                 <ul class="list-unstyled mb-0">
                   <li>
-                    <button type="button" class="btn" [ngClass]="unsolvedBtnClass[0]"><i class="fa "
-                        [ngClass]="unsolvedBtnClass[0]"></i> Unsolved
+                    <button type="button" class="btn " [ngClass]="unsolvedBtnClass[0]">  Unsolved - {{10- progressValue/10}}
                     </button>
 
                   </li>
@@ -265,7 +266,32 @@
         <div class="card my-4">
           <h5 class="card-header">Review <i class="fa fa-share-square"></i> </h5>
           <div class="card-body">
+            <div class="row">
+              <div class="col-lg-6">
+                <ul class="list-unstyled mb-0">
+                  <li *ngFor="let d of question;let i=index">
+                    <button *ngIf="i%2===0 && d.isReview" type="button" class="btn " (click)="nextContinue(d,i)"
+                      [ngClass]="d.styleclass[0]"><i class="fa " [ngClass]="d.styleclass[1]"></i> {{d.seq}} </button>
 
+                  </li>
+
+
+                </ul>
+              </div>
+              <div class="col-lg-6">
+                <ul class="list-unstyled mb-0">
+                  <ng-container *ngFor="let d of question;let i=index">
+                    <li *ngIf="i%2!==0  && d.isReview">
+                      <button type="button" class="btn " [ngClass]="d.styleclass[0]" (click)="nextContinue(d,i)"><i
+                          class="fa " [ngClass]="d.styleclass[1]"></i> {{d.seq}} </button>
+
+                    </li>
+                  </ng-container>
+
+
+                </ul>
+              </div>
+            </div>
           </div>
         </div>
 

@@ -15,4 +15,5 @@ export class Question{
     seq:number;
     styleclass:string[] = ["btn-outline-primary", "fa-question"];
     isValid:boolean=false;
+    isReview:boolean=false;
 }

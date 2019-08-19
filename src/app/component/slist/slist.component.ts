@@ -35,7 +35,7 @@ export class SlistComponent implements OnInit {
     this.pageForUser = new Pagination();
     this.pageForUser.first = 1;
     this.pageForUser.cur = 1;
-    this.pageForUser.last = 5;
+    this.pageForUser.last = 1;
     this.pageForUser.range = 5;
     this.pageForUser.callbackfunc = "pageForUserFn";
   }
@@ -43,7 +43,7 @@ export class SlistComponent implements OnInit {
     this.pageForPaper = new Pagination();
     this.pageForPaper.first = 1;
     this.pageForPaper.cur = 1;
-    this.pageForPaper.last = 5;
+    this.pageForPaper.last = 1;
     this.pageForPaper.range = 5;
     this.pageForPaper.callbackfunc = "pageForPaperFn";
   }
@@ -218,6 +218,7 @@ export class SlistComponent implements OnInit {
         this.pageForUser.first = 1;
         this.pageForUser.cur = data["page"];
         this.pageForUser.last = data["count"];
+        this.pageForUser.range = data["count"];
         this.user = data["content"];
       }
      
@@ -254,6 +255,7 @@ export class SlistComponent implements OnInit {
         this.pageForPaper.first = 1;
         this.pageForPaper.cur = data["page"];
         this.pageForPaper.last = data["count"];
+        this.pageForPaper.range = data["count"];
       }
       
       this.paper = data["content"];

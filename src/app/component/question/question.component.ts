@@ -28,6 +28,7 @@ export class QuestionComponent implements OnInit {
 
   unsolvedBtnClass: string[] = ["btn-outline-primary", "fa-question"];
   traverseBtnClass: string[] = ["btn-outline-success", "fa-arrows"];
+  solvedBtnClass: string[] = ["btn-outline-danger", "fa-pencil"];
   optionClass:string="alert-primary";
 
   ngOnInit() {
@@ -105,8 +106,8 @@ export class QuestionComponent implements OnInit {
           question.opt = [];
           question.question = resp.ques[i-1].question;
           question.correctMark = resp.ques[i-1].correctMark;
-          question.wrongMark = resp.ques[i-1].question;
-          question.wrongMark = resp.ques[i-1].question;
+          question.wrongMark = resp.ques[i-1].wrongMark;
+          question.isValid=false;
           for (let j = 1; j < 5; j++) {
             let option = new Option();
             option.description =  resp.ques[i-1].opt[j-1].description;
@@ -184,17 +185,21 @@ export class QuestionComponent implements OnInit {
 
       });
   }
-  optionclick(q: Question, o: Option) {
-
-    console.log(q);
+  
+  optionClick(q:Question,o:Option){
     for (let ot of q.opt) {
       ot.isCorrectChoice = false;
+      ot.styleCss="alert-secondary"
     }
     o.isCorrectChoice = true;
-
-  }
-  optionClick(q:Question,o:Option){
     o.styleCss=this.optionClass;
+    if(!q.isValid){
+      q.isValid=true;
+      this.progressValue+=10;
+      q.styleclass=this.solvedBtnClass;
+
+    }
+    
   }
   nextContinueBtn(q: Question, index: number) {
     let found: boolean = false;
@@ -266,12 +271,14 @@ export class QuestionComponent implements OnInit {
 
     this.current = index + 1;
 
-
+    if(!this.question[index].isValid)
     this.question[index].styleclass = this.traverseBtnClass;
 
   }
 
-
+   reviewQues(d:Question){
+      d.isReview=true;
+   }
   onStart() {
     this.notify = 'Time Left';
   }
