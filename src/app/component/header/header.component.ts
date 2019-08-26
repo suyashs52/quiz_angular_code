@@ -10,20 +10,43 @@ export class HeaderComponent implements OnInit {
   loader: boolean = false;
   error: string;
   showError: boolean;
-  showSuccess:boolean;
-  success:string;
+  showSuccess: boolean;
+  success: string;
+  public loginuserid: number = 0;
+  isAdmin: boolean = false;
   constructor(public dataService: DataService, protected route: ActivatedRoute,
     public router: Router) { }
   getDataService: DataService;
-  loginuser:string;
-  loginrole:string;
+  loginuser: string;
+  loginrole: string;
+
   ngOnInit() {
-  
+
     this.getDataService = this.dataService;
 
-   let data:any=JSON.parse(localStorage.getItem("user"));
-   this.loginuser=data.loginuser;
-   this.loginrole=data.role;
+    let data: any = JSON.parse(localStorage.getItem("user"));
+    this.loginuser = data.loginuser;
+    
+    this.loginuserid = data.userid;
+ 
+    
+    
+    if(data.role.indexOf("ADMIN")>-1){
+      this.loginrole="ADMIN";
+      this.isAdmin=true;
+    }else{
+      this.loginrole="USER";
+
+    }
+   
+    
+    if(this.router.url=="/question"){
+      document.querySelector("#endTest")["style"].display="block";
+    }else{
+      document.querySelector("#endTest")["style"].display="none";
+    }
+   
+
   }
 
   logout() {
@@ -31,7 +54,7 @@ export class HeaderComponent implements OnInit {
     location.reload(true);
   }
 
-  
+
   handleSuccess(success: any) {
     this.loader = false;
     this.showSuccess = true;

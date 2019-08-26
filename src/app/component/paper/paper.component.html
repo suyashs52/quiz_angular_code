@@ -3,7 +3,7 @@
 </div>
 <div class="container">
 
-  <div class="jumbotron" *ngIf="displayEdit">
+  <div class="jumbotron" *ngIf="displayEdit && header.isAdmin ">
     <div class="form-row">
       <div class="input-group mb-3 col-md-6">
         <div class="input-group-prepend">
@@ -46,7 +46,7 @@
           <span class="input-group-text"><i class="fa fa-clock-o"></i></span>
         </div>
         <input name="name" [(ngModel)]="savePaper.totalTime" class="form-control" aria-label="Time is mins"
-          placeholder="Time in Mins" type="text">
+          placeholder="Time in Mins" type="number">
 
 
         <div class="input-group-append">

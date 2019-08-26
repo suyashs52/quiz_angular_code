@@ -18,7 +18,8 @@ export class LoginComponent implements OnInit {
   password:string="";
   ngOnInit() {
     this.dataService.logout();
-    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+    localStorage.clear();
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/slist';
     // get return url from route pa
   }
 

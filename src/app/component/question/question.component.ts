@@ -1,9 +1,10 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { CountdownComponent } from 'ngx-countdown';
 import { Paper } from 'src/app/class/Paper';
 import { Question } from 'src/app/class/Question';
 import { Option } from 'src/app/class/Option';
 import { HeaderComponent } from '../header/header.component';
+import { MapUserQuestionChoice } from 'src/app/class/MapUserQuestionChoice';
 
 @Component({
   selector: 'app-question',
@@ -12,7 +13,7 @@ import { HeaderComponent } from '../header/header.component';
 })
 export class QuestionComponent implements OnInit {
 
-  constructor() { }
+  constructor(private elementRef:ElementRef) { }
   paper: Paper = new Paper();
   userid: number = 0;
   config: any = { leftTime: 10, notify: [2, 5] };
@@ -25,6 +26,7 @@ export class QuestionComponent implements OnInit {
   timerClass: string;
 
   question: Question[] = [];
+  mapuserques:MapUserQuestionChoice[]=[];
 
   unsolvedBtnClass: string[] = ["btn-outline-primary", "fa-question"];
   traverseBtnClass: string[] = ["btn-outline-success", "fa-arrows"];
@@ -34,8 +36,11 @@ export class QuestionComponent implements OnInit {
   ngOnInit() {
     this.config = { leftTime: 60 * 1, notify: [Math.floor(60 * 1 * 0.25)] };
     // this.notiFyTime=60*1;//this.config.leftTime;
-
-
+  
+ 
+    if(!(localStorage.getItem("paperMarks")=="" || localStorage.getItem("paperMarks")==this.paper.marks.toString())){
+      this.header.router.navigateByUrl("/result");
+    }
 
 
     if (localStorage.getItem("paper") != null) {
@@ -50,6 +55,8 @@ export class QuestionComponent implements OnInit {
         this.userid = Number.parseInt(localStorage.getItem("userid"));
       }
       this.getquestionpaper(this.paper.id, this.userid)
+    }else{
+      this.header.router.navigateByUrl("/slist");
     }
 
     //this.counter.restart();
@@ -73,7 +80,7 @@ export class QuestionComponent implements OnInit {
 
       if (resp.ques.length == 0) {
 
-        if (this.header.loginrole.indexOf("ADMIN")) {
+        if (this.header.isAdmin) {
           this.isNewPaper = true;
         }
         for (let i = 1; i < 11; i++) {
@@ -121,13 +128,7 @@ export class QuestionComponent implements OnInit {
         this.question[0].styleclass = this.traverseBtnClass;
         this.current = 1;
   
-
-
-
-
-
-
-
+ 
         
       }
 
@@ -172,6 +173,7 @@ export class QuestionComponent implements OnInit {
       if (resp.ques.length == 0) { }
 
       this.header.handleSuccess("save successfully.");
+      this.header.router.navigateByUrl("/slist");
     },
       error => {
         if (error == "OK") {
@@ -187,12 +189,15 @@ export class QuestionComponent implements OnInit {
   }
   
   optionClick(q:Question,o:Option){
+    console.log("click");
+    
     for (let ot of q.opt) {
       ot.isCorrectChoice = false;
       ot.styleCss="alert-secondary"
     }
     o.isCorrectChoice = true;
     o.styleCss=this.optionClass;
+    q.fkCorrectChoice=o.id;
     if(!q.isValid){
       q.isValid=true;
       this.progressValue+=10;
@@ -284,15 +289,67 @@ export class QuestionComponent implements OnInit {
   }
   onFinished() {
     this.notify = 'TImes Up!';
+    this.saveSubmition();
   }
   onNotify(time: number) {
     this.notiFyTime = Math.floor(time / 1000);
     console.log(this.config.notify[0]);
     console.log(this.notiFyTime);
     // notiFyTime>config.notify[0]
-    this.unsolvedBtnClass[0] = "btn-outline-danger"
+    this.unsolvedBtnClass[0] = "btn-outline-warning"
     this.notify = `${this.notiFyTime} mins left`;
     this.timerClass = "l1-txt4";
+  }
+  ngAfterViewInit() {
+    this.elementRef .nativeElement.querySelector('#endTest')
+                                  .addEventListener('click', this.saveSubmition.bind(this));
+  }
+
+  saveSubmition(){
+    console.log(this.question);
+    //mapuserques
+    this.mapuserques=[];
+console.log(this.header.loginuserid);
+
+    for(let q of this.question){
+      if(q.isValid){
+        let mapuser=new MapUserQuestionChoice();
+        mapuser.fkUser=this.header.loginuserid;
+        mapuser.fkPaper=this.paper.id;
+
+        mapuser.fkQuestion=q.id;
+        mapuser.fkChoice=q.fkCorrectChoice;
+
+        this.mapuserques.push(mapuser);
+      }
+    }
+    if(this.mapuserques.length<3){
+      this.header.handleError("please answer at least 30% questions");
+      return;
+    }
+    var datatosend={
+      muqc:this.mapuserques
+    }
+    this.header.dataService.getData(datatosend, "savetestresult").subscribe((resp) => {
+      //loader=false
+      console.log(resp);
+     // if (resp.ques.length == 0) { }
+
+      this.header.handleSuccess("save successfully.");
+      this.header.router.navigate(["/result"]);
+    },
+      error => {
+        if (error == "OK") {
+          this.header.handleSuccess("save successfully");
+        } else {
+          this.header.handleError(error);
+        }
+
+        console.log(error);
+
+
+      });
+    
   }
 
 }

@@ -4,6 +4,7 @@ import { Pagination } from '../../class/Pagination'
 import { User } from '../../class/User';
 import { Paper } from '../../class/Paper'
 import { formatDate } from '@angular/common';
+import { MapUserPaper } from 'src/app/class/MapUserPaper';
 @Component({
   selector: 'app-slist',
   templateUrl: './slist.component.html',
@@ -15,6 +16,7 @@ export class SlistComponent implements OnInit {
   public pageForPaper: Pagination;
   public user: User[] = [];
   public paper: Paper[] = [];
+  public mup:MapUserPaper[]=[];
   modalHeader: string;
   modalpasssword: string;
 
@@ -24,8 +26,24 @@ export class SlistComponent implements OnInit {
   ngOnInit() {
     this.initPagination();
     console.log(this.header.loader);
-    this.getAllUser();
+    this.header.loader = true;
+    
      
+  }
+  isAdmin:boolean=false;
+  ngAfterViewInit(){
+    console.log(this.header.loginrole);
+    if(this.header.isAdmin){
+      this.getAllUser();
+    }else{
+      document.querySelector("#nav-profile-tab").classList.value="nav-item nav-link active";
+      document.querySelector("#nav-profile").classList.value= "tab-pane fade show active";
+
+     
+      this.getAllPaper();
+    }
+   
+    
   }
   initPagination() {
   this.initUserPagination();
@@ -46,6 +64,11 @@ export class SlistComponent implements OnInit {
     this.pageForPaper.last = 1;
     this.pageForPaper.range = 5;
     this.pageForPaper.callbackfunc = "pageForPaperFn";
+  }
+  createPaper(){
+    localStorage.removeItem("paper");
+    localStorage.removeItem("paperId");
+    this.header.router.navigate(["/paper"]);
   }
   pageForUserFn(index: number, val: string) {
     switch (val) {
@@ -106,6 +129,7 @@ export class SlistComponent implements OnInit {
   }
   navpaperDetail(paper: Paper) {
    localStorage.setItem("paperId",paper.id.toString());
+   localStorage.setItem("paperMarks",paper.marks==null?"":paper.marks.toString());
    this.header.router.navigate(['/paper']);
     console.log(paper);
     this.savePaper=paper;
@@ -204,20 +228,15 @@ export class SlistComponent implements OnInit {
 
 
     this.header.error = "";
-    this.header.loader = true;
-    this.header.dataService.getMtdData({}, "user").subscribe(data => {
-    },
-    error => {
-      this.header.handleError(error);
-    });
+   
+    
     this.header.dataService.getMtdData(datatosend, "users/" + (this.pageForUser.cur - 1)).subscribe(data => {
       // this.router.navigate([this.returnUrl]);
       console.log(data);
       if(data["count"]>0){
 
-        this.pageForUser.first = 1;
-        this.pageForUser.cur = data["page"];
-        this.pageForUser.last = data["count"];
+         
+        this.pageForUser.last = data["page"];
         this.pageForUser.range = data["count"];
         this.user = data["content"];
       }
@@ -242,23 +261,35 @@ export class SlistComponent implements OnInit {
 
 
     this.header.error = "";
-    this.header.loader = true;
+    
     // this.header.dataService.getData(datatosend, "logins").subscribe(data => {
     // },
     // error => {
     //   this.handleError(error);
     // });
+    this.paper=[];
     this.header.dataService.getMtdData(datatosend, "paper/" + (this.pageForUser.cur - 1)).subscribe(data => {
       // this.router.navigate([this.returnUrl]);
       console.log(data);
       if(data["count"]>0){
-        this.pageForPaper.first = 1;
-        this.pageForPaper.cur = data["page"];
-        this.pageForPaper.last = data["count"];
+        
+        this.pageForPaper.last = data["page"];
         this.pageForPaper.range = data["count"];
+        this.paper = data["content"];
+        this.mup=data["mup"];
+
+        for(let p of this.paper){
+          for(let m of this.mup){
+            if(m.fkPaper==p.id && m.marks!=null){
+              p.marks=m.marks;
+
+            }
+          }
+        }
+
       }
       
-      this.paper = data["content"];
+      
       console.log(this.paper);
 
       this.header.loader = false;

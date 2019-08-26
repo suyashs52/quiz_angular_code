@@ -15,10 +15,20 @@ export class SignupComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    this.resetUser();
   }
 
-
+resetUser(){
+  this.saveUser.username="";
+  this.saveUser.name="";
+  this.saveUser.password="";
+  this.saveUser.phone="";
+  this.saveUser.role="ADMIN";
+  this.saveUser.vpassword="";
+}
   saveuserDetail() {
+    
+     
     if (this.saveUser.password !== this.saveUser.vpassword) {
       this.header.handleError("password mismatch");
       return;
@@ -42,7 +52,10 @@ export class SignupComponent implements OnInit {
 
     this.header.dataService.getData(datatosend, "signup").subscribe((resp) => {
       //loader=false
+     
       this.header.handleSuccess("save successfully.");
+   
+      
     },
       error => {
         if (error == "OK") {
@@ -55,6 +68,8 @@ export class SignupComponent implements OnInit {
 
 
       });
+
+      this.resetUser();
 
   }
 

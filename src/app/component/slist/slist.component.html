@@ -35,17 +35,17 @@
               <div class="col-md-12">
                 <nav>
                   <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
-                    <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab"
+                    <a *ngIf="header.isAdmin" class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab"
                       aria-controls="nav-home" aria-selected="true" (click)="userdetails($event)">User List</a>
-                    <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab"
+                    <a class="nav-item nav-link"  id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab"
                       aria-controls="nav-profile" aria-selected="false" (click)="questionList($event)">Question List</a>
 
                   </div>
                 </nav>
                 <div class="tab-content" id="nav-tabContent">
-                  <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                  <div *ngIf="header.isAdmin" class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
 
-                    <a class="btn btn-info btn-xs pull-right" routerLink="/signup" routerLinkActive="active">
+                    <a  class="btn btn-info btn-xs pull-right" routerLink="/signup" routerLinkActive="active">
                       <span class="fa fa-user-plus "></span></a>
                     <br /><br />
 
@@ -125,7 +125,7 @@
                   </div>
                   <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
 
-                    <a class="btn btn-info btn-xs pull-right" routerLink="/paper" routerLinkActive="active">
+                    <a *ngIf="header.isAdmin" class="btn btn-info btn-xs pull-right" (click)="createPaper()">
                       <span class="fa fa-question-circle "></span></a>
                     <br /><br />
 
@@ -139,7 +139,7 @@
                         <th>Desc</th>
                         <th>Time</th>
                         <th>Question</th>
-                        <th>Edit</th>
+                        <th *ngIf="header.isAdmin">Edit</th>
                         <th></th>
 
                         <!-- <th>Delete</th> -->
@@ -154,13 +154,13 @@
                           <td>{{d.totalTime}}</td>
                           <td>{{d.totalQuestion}}</td>
 
-                          <td>
+                          <td *ngIf="header.isAdmin">
                             <p data-placement="top" data-toggle="tooltip" title="Edit" (click)="editpaperDetail(d)">
                               <button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal"
                                 data-target="#editPaper"><span class="fa fa-pencil"></span></button></p>
                           </td>
                           <td>
-                              <p data-placement="top" data-toggle="tooltip" title="Edit" (click)="navpaperDetail(d)">
+                              <p data-placement="top" data-toggle="tooltip" title="Navigate" (click)="navpaperDetail(d)">
                                 <button class="btn btn-primary btn-xs"><span class="fa fa-arrow-right"></span></button></p>
                             </td>
                         </tr>

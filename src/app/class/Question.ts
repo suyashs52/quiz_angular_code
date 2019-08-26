@@ -8,6 +8,7 @@ export class Question{
     correctMark:number=4;
     wrongMark:number=0;
     fkLevel:number=1;
+    fkLevelDesc:string="easy";
     fkCorrectChoice:number;
     opt :Option[]=new Array(4);
     choices:MapUserQuestionChoice=new MapUserQuestionChoice();

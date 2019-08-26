@@ -6,4 +6,5 @@ export class Paper{
     createdBy:string;
     createdDate:string;
     totalQuestion:number;
+    marks:number=10000;
 }
